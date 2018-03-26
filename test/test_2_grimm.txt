@@ -1,0 +1,12 @@
+>sp1
+-trnH-GUG trnL-UUU-exon1 matK trnL-UUU-exon2 psbA psbK psbC -rps3 rrn16 rrn23 rrn4.5 rrn5 ycf1 ndhI ndhG ndhE
+>sp2
+-trnH-GUG trnL-UUU-exon1 matK trnL-UUU-exon2 -psbK -psbA psbC -rps3 -rps19 rrn16 rrn23 rrn4.5 rrn5 ycf1 ndhI ndhG ndhE
+>sp3
+-trnH-GUG trnL-UUU-exon1 matK trnL-UUU-exon2 -ndhG -ndhI -ycf1 -rrn5 -rrn4.5 -rrn23 -rrn16 rps19 rps3 -psbC -psbK -psbA ndhE
+>sp4
+-trnH-GUG -psbA -trnL-UUU-exon2 -matK -trnL-UUU-exon1 psbK psbC -rps3 -rps19 rrn16 rrn23 rrn4.5 rrn5 ycf1 ndhI ndhG ndhE -ycf1 -rrn5 -rrn4.5 -rrn23 -rrn16 rps19 rps3
+>sp5
+-trnH-GUG -psbA trnL-UUU-exon1 matK trnL-UUU-exon2 psbK psbC -rps3 -rps19 rrn16 rrn23 rrn4.5 rrn5 ycf1 ndhI ndhG ndhE -ycf1 -rrn5 -rrn4.5 -rrn23 -rrn16 rps19 rps3
+>sp6
+-trnH-GUG -psbA -trnL-UUU-exon2 -matK -trnL-UUU-exon1 psbK psbC -rps3 -rps19 rrn16 rrn23 rrn4.5 rrn5 ycf1 ndhI ndhG ndhE -rrn5 -rrn4.5 -rrn23 -rrn16 rps19 rps3
