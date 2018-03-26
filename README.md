@@ -1,6 +1,6 @@
 # Arachis
 
-Arachis is a python 3.* package that allow users to reconstruct ancestral plastome gene orders and 
+Arachis is a python 3.* package that allow users to reconstruct ancestral genome gene orders and 
 infer pairwise plastome differences or events.
 
 The algorithm for reconstructing ancestral plastome gene orders implement in script file `run_pypmag.py`
@@ -25,6 +25,19 @@ Also, users have to bear in mind that do not test data with too many breakpoints
 The function SignedPermutation.inversion_event_from utilizes an <b>exhausted</b> 
 scheme searching for one best solution.
 
+## Installation
+
+Download Arachis and install Arachis with:
+
+    git clone ...
+    cd ARACHIS
+    python setup.py install
+
+To use `run_pypmag.py` to reconstruct ancestral genome gene order, you have to install following dependencies:
+
+1. RAxML
+2. tsp_solver
+
 ## Example
 Run `pypmag` with test data:
 
@@ -46,6 +59,7 @@ If you use run_pypmag.py, please cite following papers as well:
 1. RAxML
 2. tsp_solver
 3. pmag+
+4. dendropy
 
 ## License
 GNU General Public License, version 3
