@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-import sys
-import dendropy
 from optparse import OptionParser
 from arachis.treeClass import *
 
