@@ -51,24 +51,26 @@ Get it [here](http://www.math.uwaterloo.ca/tsp/concorde/downloads/downloads.htm)
 
 * To check whether two circular permutations, `-e -d -c -b -a` and `a b c d e`, are equivalent:
 
-        $ python
+    ```py
+        # under python console
         >>> from arachis.genomeClass import Chromosome
         >>> seq1 = Chromosome("-e -d -c -b -a")
         >>> seq2 = Chromosome("a b c d e")
         >>> seq1 == seq2
         True
+    ```
 
 * If you want to see how many flip-flop configurations (isomers) could be induced by several groups of inverted repeats, 
 or in another similar case, to see how many reasonable paths are there in a complicated assembly graph with repeats that
 could not be unfolded by short seq-library, try this:
  
      ```py
-        $ python
+        # under python console
         >>> from arachis.genomeClass import Chromosome
         >>> Picea = Chromosome("1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 7 8 9 -6")
         >>> isomers, changes = Picea.get_isomers()
         >>> print(len(isomers))
-        <font color=grey>15</font>
+        15
         >>> for isomer in isomers:
                 print(isomer)
         1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 -9 -8 -7 -6
@@ -93,7 +95,8 @@ could not be unfolded by short seq-library, try this:
     
 * To see parsimonious events along the branch from `A1` to `sp2` in above test_1 running results:
 
-        $ python
+     ```py
+        # under python console
         >>> from arachis.genomeClass import GenomeList
         >>> extant_samples = GenomeList("test/test_1_grimm.txt")
         >>> sp2 = extant_samples["sp2"].chromosomes()[0]
@@ -104,7 +107,7 @@ could not be unfolded by short seq-library, try this:
                 inherited combinations: 1; inversion sites:  2; time: 0.0002s; memory: 0.01G
                 Inversions: 1 + 0(iso)
                 Total inversion time: 0.0006s
-
+     ```
 
 ## Citation
 
