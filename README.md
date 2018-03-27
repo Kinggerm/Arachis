@@ -27,10 +27,9 @@ written interleaved. This design is due to the limitation of applying to tsp sol
 
 The functions in Arachis for inferring pairwise genome differences or events are still at <b>infant</b> stage. 
 If you find any bugs or something to improve, please contact 
-[jinjianjun@mail.kib.ac.cn](mailto:jinjianjun@mail.kib.ac.cn). New contributors are welcome!
-
+[jinjianjun@mail.kib.ac.cn](mailto:jinjianjun@mail.kib.ac.cn). New contributors are welcome! 
 Also, users have to bear in mind that do not test data with too many breakpoints (like 10+).
-The function SignedPermutation.inversion_event_from utilizes an <b>exhausted</b> 
+Currently, the function SignedPermutation.inversion_event_from utilizes an <b>exhausted</b> 
 scheme searching for one best solution. Currently, I'm using it to play with highly rearranged plastome data of legumes.
 It's worth trying more small permutations, like some plant mitochondrial data.
 
