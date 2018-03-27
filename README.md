@@ -61,17 +61,16 @@ Get it [here](http://www.math.uwaterloo.ca/tsp/concorde/downloads/downloads.htm)
 * If you want to see how many flip-flop configurations (isomers) could be induced by several groups of inverted repeats, 
 or in another similar case, to see how many reasonable paths are there in a complicated assembly graph with repeats that
 could not be unfolded by short seq-library, try this:
-
-        $ python
+ 
      ```py
-        from arachis.genomeClass import Chromosome
+        $ python
+        >>> from arachis.genomeClass import Chromosome
         >>> Picea = Chromosome("1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 7 8 9 -6")
         >>> isomers, changes = Picea.get_isomers()
         >>> print(len(isomers))
-        15
+        <font color=grey>15</font>
         >>> for isomer in isomers:
                 print(isomer)
-        <font color=gray>
         1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 -9 -8 -7 -6
         1 2 12 14 13 2 3 4 10 8 9 -6 -5 -4 -11 -14 -15 -8 -7 -6
         1 2 12 14 11 4 5 6 -9 -8 -10 -4 -3 -2 -13 -14 -15 -8 -7 -6
@@ -86,7 +85,6 @@ could not be unfolded by short seq-library, try this:
         1 2 3 4 5 6 7 8 15 14 13 2 12 14 11 4 10 8 9 -6
         1 2 3 4 10 8 15 14 13 2 12 14 11 4 5 6 7 8 9 -6
         1 2 12 14 11 4 10 8 15 14 13 2 3 4 5 6 7 8 9 -6
-        </font>
     ```
 
 * Run `run_pypmag.py` to reconstruct ancestral genome gene order of test data:
