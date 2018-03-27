@@ -58,9 +58,7 @@ Get it [here](http://www.math.uwaterloo.ca/tsp/concorde/downloads/downloads.htm)
         >>> seq2 = Chromosome("a b c d e")
         >>> seq1 == seq2
     ```
-    ```
-        True
-    ```
+    <pre><code><font color=grey>True</font></code></pre>
 
 * If you want to see how many flip-flop configurations (isomers) could be induced by several groups of inverted repeats, 
 or in another similar case, to see how many reasonable paths are there in a complicated assembly graph with repeats that
