@@ -42,10 +42,10 @@ Download Arachis and install Arachis with:
 To further use `run_pypmag.py` to reconstruct ancestral genome gene order, you have to install following dependencies:
 
 * <b>DendroPy</b> The tree parser in Arachis. Get it [here](https://www.dendropy.org/#installing).
-* <b>RAxML</b> The ancestral state reconstruction engine in the algorithm of PMAG+. 
+* <b>RAxML</b> The reconstruction engine in the algorithm of PMAG+. 
 The single thread version is preferred. Get it [here](https://github.com/stamatak/standard-RAxML).
 * <b>Concorde</b> The TSP (Traveling Salesman Problem) Solver in the algorithm of PMAG+. 
-Get it [here](http://www.math.uwaterloo.ca/tsp/concorde/downloads/downloads.htm)
+Get it [here](http://www.math.uwaterloo.ca/tsp/concorde/downloads/downloads.htm).
 
 ## Example
 
@@ -70,9 +70,15 @@ could not be unfolded by short seq-library, try this:
         >>> Picea = Chromosome("1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 7 8 9 -6")
         >>> isomers, changes = Picea.get_isomers()
         >>> print(len(isomers))
+     ```
+     ```
         15
+     ```
+     ```py
         >>> for isomer in isomers:
                 print(isomer)
+     ```
+     ```
         1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 -9 -8 -7 -6
         1 2 12 14 13 2 3 4 10 8 9 -6 -5 -4 -11 -14 -15 -8 -7 -6
         1 2 12 14 11 4 5 6 -9 -8 -10 -4 -3 -2 -13 -14 -15 -8 -7 -6
@@ -103,6 +109,8 @@ could not be unfolded by short seq-library, try this:
         >>> ancestors = GenomeList("test/test_1_output/OutputGeneOrder")
         >>> A1 = ancestors["A1"].chromosomes()[0]
         >>> events = sp2.event_from(A1)
+     ```
+     ```
                 Breakpoints: 2
                     Round 1: inherited combinations: 1; inversion sites:  2; time: 0.0002s; memory: 0.01G
                 Inversions: 1 + 0(iso)
