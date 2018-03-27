@@ -6,7 +6,7 @@ Arachis is a a Python library for analysing genome rearrangements. It allow user
 gene orders and infer pairwise genome differences or events.
 
 The algorithm for reconstructing ancestral genome gene orders implemented in the script file `run_pypmag.py`
-is derived from the ancestral gene order reconstruction module of [`PMAG+`]("#PMAG+"), with modifications:
+is derived from the ancestral gene order reconstruction module of <a href="#PMAG">`PMAG+`</a>, with modifications:
 
 1. Circular and gap-containing genomes is allowed as inputs. See modification on GRIMM below.
 2. Equipped with python multiprocessing.
@@ -63,13 +63,15 @@ or in another similar case, to see how many reasonable paths are there in a comp
 could not be unfolded by short seq-library, try this:
 
         $ python
-        >>> from arachis.genomeClass import Chromosome
+        ```py
+        from arachis.genomeClass import Chromosome
         >>> Picea = Chromosome("1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 7 8 9 -6")
         >>> isomers, changes = Picea.get_isomers()
         >>> print(len(isomers))
         15
         >>> for isomer in isomers:
                 print(isomer)
+        <font color=gray>
         1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 -9 -8 -7 -6
         1 2 12 14 13 2 3 4 10 8 9 -6 -5 -4 -11 -14 -15 -8 -7 -6
         1 2 12 14 11 4 5 6 -9 -8 -10 -4 -3 -2 -13 -14 -15 -8 -7 -6
@@ -84,10 +86,12 @@ could not be unfolded by short seq-library, try this:
         1 2 3 4 5 6 7 8 15 14 13 2 12 14 11 4 10 8 9 -6
         1 2 3 4 10 8 15 14 13 2 12 14 11 4 5 6 7 8 9 -6
         1 2 12 14 11 4 10 8 15 14 13 2 3 4 5 6 7 8 9 -6
+        </font>
+        ```
 
 * Run `run_pypmag.py` to reconstruct ancestral genome gene order of test data:
 
-        run_pypmag.py -d test/test_1_grimm.txt -t test_1_grimm.tre -o test/test_1_output --seed 12345
+        run_pypmag.py -d test/test_1_grimm.txt -t test/test_1_rooted.tre -o test/test_1_output --seed 12345
     
 * To see parsimonious events along the branch from `A1` to `sp2` in above test_1 running results:
 
@@ -98,6 +102,11 @@ could not be unfolded by short seq-library, try this:
         >>> ancestors = GenomeList("test/test_1_output/OutputGeneOrder")
         >>> A1 = ancestors["A1"].chromosomes()[0]
         >>> events = sp2.event_from(A1)
+                Breakpoints: 2
+                inherited combinations: 1; inversion sites:  2; time: 0.0002s; memory: 0.01G
+                Inversions: 1 + 0(iso)
+                Total inversion time: 0.0006s
+
 
 ## Citation
 
@@ -105,12 +114,12 @@ If you use Arachis in your research, you could cite Arachis as:
 * Jian-Jun Jin. 2018. Arachis: a Python library for analysing genome rearrangements. https://www.github.org/Kinggerm/ARACHIS
 
 If you use `run_pypmag.py`, please cite following papers:
-<div id="PMAG+"></div>
+<div id="PMAG"></div>
 
-* <b>PMAG+</b> Hu, F., Zhou, J., Zhou, L., & Tang, J. 2014. Probabilistic Reconstruction of Ancestral Gene Orders with Insertions and Deletions. IEEE/ACM Transactions on Computational Biology and Bioinformatics, 11(4), 667–672. [http://doi.org/10.1109/TCBB.2014.2309602](http://doi.org/10.1109/TCBB.2014.2309602)
-* <b>RAxML</b> Stamatakis, A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics, 30(9), 1312–1313. [http://doi.org/10.1093/bioinformatics/btu033](http://doi.org/10.1093/bioinformatics/btu033)
+* <b>PMAG+</b> Hu, F., Zhou, J., Zhou, L., & Tang, J. 2014. Probabilistic Reconstruction of Ancestral Gene Orders with Insertions and Deletions. IEEE/ACM Transactions on Computational Biology and Bioinformatics, 11(4), 667–672. <http://doi.org/10.1109/TCBB.2014.2309602>
+* <b>RAxML</b> Stamatakis, A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics, 30(9), 1312–1313. <http://doi.org/10.1093/bioinformatics/btu033>
 * <b>Concorde</b> D. Applegate, R. Bixby, V. Chvatal, & W. Cook. 2011. “Concorde TSP Solver,” http://www.math.uwaterloo.ca/tsp/concorde/
-* <b>DendroPy</b> Sukumaran, J., & Holder, M. T. 2010. DendroPy: a Python library for phylogenetic computing. Bioinformatics, 26(12), 1569–1571. [http://doi.org/10.1093/bioinformatics/btq228](http://doi.org/10.1093/bioinformatics/btq228)
+* <b>DendroPy</b> Sukumaran, J., & Holder, M. T. 2010. DendroPy: a Python library for phylogenetic computing. Bioinformatics, 26(12), 1569–1571. <http://doi.org/10.1093/bioinformatics/btq228>
 
 ## Acknowledgement
 
