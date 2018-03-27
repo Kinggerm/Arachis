@@ -63,7 +63,7 @@ or in another similar case, to see how many reasonable paths are there in a comp
 could not be unfolded by short seq-library, try this:
 
         $ python
-        ```py
+     ```py
         from arachis.genomeClass import Chromosome
         >>> Picea = Chromosome("1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 7 8 9 -6")
         >>> isomers, changes = Picea.get_isomers()
@@ -87,7 +87,7 @@ could not be unfolded by short seq-library, try this:
         1 2 3 4 10 8 15 14 13 2 12 14 11 4 5 6 7 8 9 -6
         1 2 12 14 11 4 10 8 15 14 13 2 3 4 5 6 7 8 9 -6
         </font>
-        ```
+    ```
 
 * Run `run_pypmag.py` to reconstruct ancestral genome gene order of test data:
 
