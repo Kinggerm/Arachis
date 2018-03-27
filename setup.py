@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 import os
 
 setup(
-      name="Arachis",
+      name="arachis",
       version="0.40",
       description="Analyzing ReArrangements with Circular Headed Incomplete Sequences",
       author="Jianjun Jin",
       author_email='jinjianjun@mail.kib.ac.cn',
       url="http://github???",
       license="GNU General Public License, version 3",
-      packages=["Arachis"],
+      packages=["arachis"],
       scripts=["scripts/run_pypmag.py", "scripts/compare_grimm_files.py"],
       )
 
