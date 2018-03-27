@@ -57,6 +57,8 @@ Get it [here](http://www.math.uwaterloo.ca/tsp/concorde/downloads/downloads.htm)
         >>> seq1 = Chromosome("-e -d -c -b -a")
         >>> seq2 = Chromosome("a b c d e")
         >>> seq1 == seq2
+    ```
+    ```
         True
     ```
 
