@@ -2,8 +2,11 @@
 
 ## Introduction
 
-Arachis is a a Python library for analysing genome rearrangements. It allow users to reconstruct ancestral genome 
+Arachis is a Python library for analyzing genome rearrangements. It allow users to reconstruct ancestral genome 
 gene orders and infer pairwise genome differences or events.
+
+
+## Algorithms & Features
 
 The algorithm for reconstructing ancestral genome gene orders implemented in the script file `run_pypmag.py`
 is derived from the ancestral gene order reconstruction module of <a href="#PMAG">`PMAG+`</a>, with modifications:
@@ -12,7 +15,7 @@ is derived from the ancestral gene order reconstruction module of <a href="#PMAG
 2. Equipped with python multiprocessing.
 3. More flexible in input both tree and data format.
 
-This package implement a derived version of [the classic GRIMM format](http://grimm.ucsd.edu/GRIMM/grimm_instr.html) 
+This library defines a new version of [the classic GRIMM format](http://grimm.ucsd.edu/GRIMM/grimm_instr.html) 
 with following modifications:
 1. Blocks could be named with letters in "`-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz|~[]`". 
 "`-`" still means a reverse direction when it appears at the first letter.
