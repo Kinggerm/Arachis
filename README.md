@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Arachis is a Python library for analyzing genome rearrangements. It allow users to reconstruct ancestral genome 
+Arachis is a Python library for analyzing genome rearrangements. It allows users to reconstruct ancestral genome 
 gene orders and infer pairwise genome differences or events.
 
 
@@ -11,9 +11,9 @@ gene orders and infer pairwise genome differences or events.
 The algorithm for reconstructing ancestral genome gene orders implemented in the script file `run_pypmag.py`
 is derived from the ancestral gene order reconstruction module of <a href="#PMAG">`PMAG+`</a>, with modifications:
 
-1. Circular and gap-containing genomes is allowed as inputs. See modification on GRIMM below.
+1. Circular and gap-containing genomes is allowed as inputs. See modifications on GRIMM below.
 2. Equipped with python multiprocessing.
-3. More flexible in input both tree and data format.
+3. More flexible in input data format (both tree and GRIMM).
 
 This library defines a new version of [the classic GRIMM format](http://grimm.ucsd.edu/GRIMM/grimm_instr.html) 
 with following modifications:
@@ -26,11 +26,11 @@ one chromosome per sample is allowed, and multiple lines without "$" would be re
 written interleaved. This design is due to the limitation of applying to tsp solver.
 
 The functions in Arachis for inferring pairwise genome differences or events are still at <b>infant</b> stage. 
-If you find any bugs or something to improve, please contact 
+If you find any bug or something to improve, please contact 
 [jinjianjun@mail.kib.ac.cn](mailto:jinjianjun@mail.kib.ac.cn). New contributors are welcome! 
 Also, users have to bear in mind that do not test data with too many breakpoints (like 10+).
-At this stage, the function SignedPermutation.inversion_event_from utilizes an <b>exhausted</b> 
-scheme searching for one best solution. Currently, I'm using it to play with highly rearranged plastome data of legumes.
+At this stage, the function Chromosome.inversion_event_from utilizes an <b>exhausted</b> scheme searching 
+for one best solution. Currently, I am using it to play with highly rearranged plastome data of legumes.
 It's worth trying more small permutations, like some plant mitochondrial data.
 
 ## Installation
@@ -74,7 +74,7 @@ could not be unfolded by short seq-library, try this:
         >>> print(len(isomers))
      ```
      ```
-        15
+        14
      ```
      ```py
         >>> for isomer in isomers:
