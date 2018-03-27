@@ -39,9 +39,8 @@ path_of_this_script = os.path.split(os.path.realpath(__file__))[0]
 
 import subprocess
 from multiprocessing import Pool, Lock
-from Arachis.genomeClass import *
-from Arachis.mapTreeLabels import get_node_label_mapping
-from Arachis.treeParser import get_tree
+from arachis.genomeClass import *
+from arachis.treeClass import get_tree, get_node_label_mapping
 from math import log
 from optparse import OptionParser
 
