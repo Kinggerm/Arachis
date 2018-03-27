@@ -52,7 +52,7 @@ Get it [here](http://www.math.uwaterloo.ca/tsp/concorde/downloads/downloads.htm)
 * To check whether two circular permutations, `-e -d -c -b -a` and `a b c d e`, are equivalent:
 
     ```py
-        # under python console
+        # open python shell
         >>> from arachis.genomeClass import Chromosome
         >>> seq1 = Chromosome("-e -d -c -b -a")
         >>> seq2 = Chromosome("a b c d e")
@@ -65,7 +65,7 @@ or in another similar case, to see how many reasonable paths are there in a comp
 could not be unfolded by short seq-library, try this:
  
      ```py
-        # under python console
+        # open python shell
         >>> from arachis.genomeClass import Chromosome
         >>> Picea = Chromosome("1 2 12 14 13 2 3 4 10 8 15 14 11 4 5 6 7 8 9 -6")
         >>> isomers, changes = Picea.get_isomers()
@@ -96,7 +96,7 @@ could not be unfolded by short seq-library, try this:
 * To see parsimonious events along the branch from `A1` to `sp2` in above test_1 running results:
 
      ```py
-        # under python console
+        # open python shell
         >>> from arachis.genomeClass import GenomeList
         >>> extant_samples = GenomeList("test/test_1_grimm.txt")
         >>> sp2 = extant_samples["sp2"].chromosomes()[0]
@@ -104,7 +104,7 @@ could not be unfolded by short seq-library, try this:
         >>> A1 = ancestors["A1"].chromosomes()[0]
         >>> events = sp2.event_from(A1)
                 Breakpoints: 2
-                inherited combinations: 1; inversion sites:  2; time: 0.0002s; memory: 0.01G
+                    Round 1: inherited combinations: 1; inversion sites:  2; time: 0.0002s; memory: 0.01G
                 Inversions: 1 + 0(iso)
                 Total inversion time: 0.0006s
      ```

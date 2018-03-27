@@ -1112,7 +1112,9 @@ class Chromosome:
                 adding_isomers(other_isomers, iso_inv_changes, inv_changes, adjacency_dif, next_step)
                 for isomer in other_isomers:
                     recorded_chromosome.add(hash(isomer))
+                go_round = 0
                 while True:
+                    go_round += 1
                     time_r = time.time()
                     for step_id in range(len(next_step)):
                         next_step[step_id].sort(key=lambda x: (len(x[1]), x[3]["count"]))
@@ -1121,8 +1123,8 @@ class Chromosome:
                     next_step.sort(key=lambda x: (len(x[0][1]), x[0][3]["count"]))
                     previous_step = next_step
                     next_step = []
-                    sys.stdout.write("\tinherited combinations: " + str(sum([len(sub_s) for sub_s in previous_step]))
-                                     + "; inversion sites: ")
+                    sys.stdout.write("\t\tRound " + str(go_round) + ": inherited combinations: " +
+                                     str(sum([len(sub_s) for sub_s in previous_step])) + "; inversion sites: ")
                     sys.stdout.flush()
                     for sub_step in previous_step:
                         for prev_other_p, prev_inv_changes, prev_sites, prev_adj_change in sub_step:
