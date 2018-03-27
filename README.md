@@ -37,8 +37,8 @@ It's worth trying more small permutations, like some plant mitochondrial data.
 
 Download Arachis and install Arachis with:
 
-    $ git clone "https://github.com/Kinggerm/ARACHIS"
-    $ cd ARACHIS
+    $ git clone "https://github.com/Kinggerm/Arachis"
+    $ cd Arachis
     $ python setup.py install
 
 To further use `run_pypmag.py` to reconstruct ancestral genome gene order, you have to install following dependencies:
