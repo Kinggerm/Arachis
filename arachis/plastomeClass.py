@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from Arachis.genomeClass import *
+from arachis.genomeClass import *
 
 
 class SubChromosome(Chromosome):
