@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-__version__ = "0.2"
+__version__ = "0.41"
 
 # Features
 # 1. involve gaps in genomes
@@ -113,13 +113,11 @@ def pool_multiprocessing(target, iter_args, constant_args, num_process):
             constant_args = [constant_args]
     else:
         constant_args = []
-    # uninterrupted
     pool = Pool(processes=num_process)
     for this_arg in iter_args:
         pool.apply_async(target, tuple(list(this_arg) + list(constant_args)))
     pool.close()
     try:
-        # apply_async().get()
         pool.join()
     except KeyboardInterrupt:
         pool.terminate()
@@ -139,17 +137,6 @@ def reroot_trees(tree, out_dir, resume, verbose):
     in_tree = get_tree(tree, rooting='force-rooted')
     anc_labels = []
     anc_trees = []
-    # run_command = which_reroot+' '+tree+" > "+os.path.join(out_dir, "RerootedTrees")
-    # run_it_in_shell(run_command, verbose)
-    # with open(os.path.join(out_dir, "RerootedTrees")) as trees_handler:
-    #     line = trees_handler.readline()
-    #     while line:
-    #         label = line.strip()
-    #         tree = trees_handler.readline()
-    #         anc_labels.append(label)
-    #         anc_trees.append(os.path.join(out_dir, "rerooted."+label))
-    #         open(anc_trees[-1], "w").write(tree)
-    #         line = trees_handler.readline()
     for node in in_tree.postorder_internal_node_iter():
         if node.parent_node:
             anc_labels.append(node.label)
@@ -224,10 +211,8 @@ def write_tsp_graph(tsp_dict, out_file):
 
 
 def trans_uni_id_to_gene(tsp_graph, unique_id_to_block, middle_to_block_id, this_anc):
-    # print(unique_id_to_block)
     this_chromosome = []
     for i in range(0, len(tsp_graph), 3):
-        # ?? next if $Index == $  # LTSPSolutionCycle;
         left = tsp_graph[i]
         middle = tsp_graph[i+1]
         right = tsp_graph[i+2]
@@ -341,10 +326,7 @@ def reconstruct_ancestral_genomes(data_file, input_tree, out_dir, which_raxml, w
 
     adjacency_chars = [((adj.left.name, adj.left.direction), (adj.right.name, adj.right.direction))
                        for adj in genomes.adjacency_counter.character_list()]
-    # for adj in adjacency_chars:
-    #     print(block_to_str(adj[0]), block_to_str(adj[1]))
     with_telomere = genomes.contains_telomere()
-    # alphabet = genomes[0].get_phylip_alphabet()
 
     content_encoding = os.path.join(out_dir, "Content.encoding")
     if not (resume and os.path.exists(content_encoding)):
@@ -362,7 +344,7 @@ def reconstruct_ancestral_genomes(data_file, input_tree, out_dir, which_raxml, w
                 del iter_arguments[go_to]
             go_to -= 1
         os.system("rm " + os.path.join(out_dir, "RAxML_") + "*")
-    # subprocess will not return error under this code
+    # subprocess will not return error under this code under this mode
     if num_process > 1:
         pool_multiprocessing(target=sub_reconstruct_anc_genomes, iter_args=iter_arguments,
                              constant_args=(
@@ -380,7 +362,8 @@ def reconstruct_ancestral_genomes(data_file, input_tree, out_dir, which_raxml, w
         temp_f = open(os.path.join(out_dir, "OutputGeneOrder_" + ancestor_labels[go_to]))
         gene_order_out.write(temp_f.read())
         temp_f.close()
-        # os.remove(os.path.join(out_dir, "OutputGeneOrder_" + str(go_to)))
+        if not keep_temp:
+            os.remove(os.path.join(out_dir, "OutputGeneOrder_" + str(go_to)))
     gene_order_out.close()
 
 
@@ -553,16 +536,13 @@ def sub_reconstruct_anc_genomes(go_to, ancestor_labels, rerooted_trees, content_
             # translate
             chromosomes.append(trans_uni_id_to_gene(tsp_path, uni_id_to_block, middle_to_block, this_anc))
         else:
-            # sys.stdout.write("result contains " + str(len(cap_ids)) + " telomere.\n")
             for go_to_cap in range(len(cap_ids)-1):
                 this_path = tsp_path[cap_ids[go_to_cap]+1: cap_ids[go_to_cap+1]]
                 if this_path:
-                    # sys.stdout.write("this path: " + " ".join([str(node) for node in this_path])+"\n")
                     chromosomes.append(trans_uni_id_to_gene(this_path, uni_id_to_block, middle_to_block, this_anc)
                                        + ["$"])
             this_path = tsp_path[cap_ids[-1]+1:] + tsp_path[:cap_ids[0]]
             if this_path:
-                # sys.stdout.write("this path: " + " ".join([str(node) for node in this_path]) + "\n")
                 chromosomes.append(trans_uni_id_to_gene(this_path, uni_id_to_block, middle_to_block, this_anc)
                                    + ["$"])
         """ write to file """
@@ -579,14 +559,6 @@ def sub_reconstruct_anc_genomes(go_to, ancestor_labels, rerooted_trees, content_
         os.remove(this_tree)
         os.system("rm " + os.path.join(out_dir, "RAxML_") + "*." + ancestor_labels[go_to])
     sys.stdout.write(this_anc + " cost: " + str(round(time.time() - time0, 2)) + "s\n")
-        # RAxML_marginalAncestralProbabilities.Content.A??
-        # RAxML_marginalAncestralStates.Content.A??
-        # RAxML_nodeLabelledRootedTree.Content.A??
-        # RAxML_info.Content.A??
-        # RAxML_marginalAncestralProbabilities.Order.A??
-        # RAxML_marginalAncestralStates.Order.A??
-        # RAxML_nodeLabelledRootedTree.Order.A??
-        # RAxML_info.Order.A??
 
 
 def main():
