@@ -1,21 +1,6 @@
 #! /usr/bin/env python
 __version__ = "0.41"
 
-# Features
-# 1. involve gaps in genomes
-# 2. allow gene name to be strings (numbers+alphabet+underline+short-line)
-# 3. more relaxed way in parsing tree
-# 4. no "$" in the end of a line stands for a circular chromosome, but only one chromosome is allowed (in which case,
-#    meaning no "$" found in sequence, multi-line context would be regarded as one single chromosome) due to the
-#    limitation of applying to tsp. Applying circular genomes together with linear genomes would be difficult for tsp solver.
-# 5. multiprocessing
-
-# Future
-# involve branch length
-# problem with the gap design in the binary matrix: by default each character would have equal prob (? or the average prob estimated from the data) for two states, which is not true for adjacency.
-# why not apply the MULTIGAMMA to the adjacencies rather than apply a content coding together with the adjacencies?
-# involve credibility interval?
-
 import os
 import sys
 import time
@@ -26,6 +11,8 @@ if major_py_version == 3 and minor_py_version >= 5:
     from subprocess import getstatusoutput
 elif major_py_version == 2 and minor_py_version >= 7:
     python_version = "2.7+"
+    sys.stdout.write("Warning: you are using a python version which had not been tested with!\n"
+                     "Be careful or switch to Python 3.5+\n")
     from commands import getstatusoutput
 else:
     sys.stdout.write("Python version have to be 3.5+ or 2.7+\n")
