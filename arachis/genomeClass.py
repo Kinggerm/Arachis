@@ -185,7 +185,7 @@ class Adjacency:
 
     def as_head_tail_str(self):
         return self.left.name + ["_HEAD", "_TAIL"][self.left.direction] + "--" + \
-               self.right.name + ["_TAIL", "_HEAD"][self.right.direction] + "--"
+               self.right.name + ["_TAIL", "_HEAD"][self.right.direction]
 
 
 class Chromosome:
