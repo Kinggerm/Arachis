@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 from optparse import OptionParser
-from genomeStructure import *
+from arachis.genomeClass import *
 
 
 def get_options():
