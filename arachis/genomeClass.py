@@ -348,10 +348,20 @@ class Chromosome:
             raise IndexError("Invalid index form: " + str(type(item)) + "!")
 
     def __contains__(self, item):
-        if self.__build_bl_hash:
-            return item in self.block_pointer
+        if type(item) == SignedBlock:
+            if self.__build_bl_hash:
+                return item in self.block_pointer
+            else:
+                return item in self.__list or -item in self.__list
+        elif type(item) == Adjacency:
+            if self.__build_adj_hash:
+                return item in self.adjacency_pointer
+            else:
+                self.build_adj_hash()
+                self.__build_adj_hash = True
+                return item in self.adjacency_pointer
         else:
-            return item in self.__list or -item in self.__list
+            return False
 
     def __bool__(self):
         return bool(self.__list)
