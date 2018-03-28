@@ -24,6 +24,10 @@ class Plastome(Chromosome):
                             build_adj_hash=build_adj_hash, build_adjacent_blocks=build_adjacent_blocks,
                             check_redundant_gaps=check_redundant_gaps, check_content=check_content,
                             mirror=mirror)
+        if check_content and not self.circular:
+            raise TypeError("\n" + str(type(self)) + " is designed as a circular signed permutation!\n"
+                            "Please use: arachis.genomeClass.Chromosome(\"" + str(chromosome_str_or_list) + "\")\n"
+                            "Forbidden : arachis.plastomeClass.Plastome(\"" + str(chromosome_str_or_list) + "\")\n")
         self.ir = None
         self.lsc = None
         self.ssc = None

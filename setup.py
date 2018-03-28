@@ -3,7 +3,7 @@ import os
 
 setup(
       name="arachis",
-      version="0.41",
+      version="0.41.2",
       description="Analyzing ReArrangements with Circular Headed Incomplete Sequences",
       author="Jianjun Jin",
       author_email='jinjianjun@mail.kib.ac.cn',

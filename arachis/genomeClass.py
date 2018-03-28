@@ -188,7 +188,6 @@ class Chromosome:
     def __init__(self, chromosome_str_or_list, build_bl_hash=True, build_adj_hash=True, build_adjacent_blocks=True,
                  check_redundant_gaps=True, check_content=True, mirror=False):
         self.__list = []
-        self.circular = True
         self.__build_bl_hash = build_bl_hash
         self.__build_adj_hash = build_adj_hash
         self.__build_adjacent_blocks = build_adjacent_blocks
