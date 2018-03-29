@@ -1364,8 +1364,8 @@ class GenomeList(list):
             self.content_counter = self.__ElementCounter()
             self.adjacency_counter = self.__ElementCounter()
         if grimm_file_or_string.strip():
-            if os.path.isfile(grimm_file_or_string):
-                grimm_handler = open(grimm_file_or_string)
+            if os.path.isfile(grimm_file_or_string.strip()):
+                grimm_handler = open(grimm_file_or_string.strip())
             else:
                 grimm_handler = StringIO(grimm_file_or_string)
             line = grimm_handler.readline()
@@ -1383,6 +1383,8 @@ class GenomeList(list):
                     self.adjacency_counter.add_items(self[-1].adjacency_list(), self[-1].adjacency)
                 else:
                     line = grimm_handler.readline()
+            if not len(self):
+                raise ValueError("No valid grimm sequence detected! Please check your file/input string!")
 
     def get_content_phylip(self, gap_as_ambiguous=True, binary=False):
         state_set = self.content_counter.state_set()
