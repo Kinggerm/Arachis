@@ -12,7 +12,7 @@ except ImportError:
 else:
     m_process = psutil.Process(os.getpid())
 
-LEGAL_BLOCK_NAME_CHAR = set(".0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz|~[]")
+LEGAL_BLOCK_NAME_CHAR = set("+/().;'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz|~[]") # add () 20180330
 LEGAL_PHYLIP_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUV"
 NO_DIRECTION_NAME = {"*", "$"}
 SB_TABLE = {}
@@ -27,8 +27,8 @@ def check_char_validity(check_string):
                 pass
             else:
                 raise ValueError("Invalid notation for \"" + check_string[c_id] + "\" in \"" + check_string + "\"\n"
-                                 "Avail characters for 1st letter: " + "".join(list(LEGAL_BLOCK_NAME_CHAR)) + "\n"
-                                 "Avail characters for others:" + "".join(list(LEGAL_BLOCK_NAME_CHAR)) + "-")
+                                 "Avail characters for 1st letter: " + "".join(sorted(LEGAL_BLOCK_NAME_CHAR)) + "\n"
+                                 "Avail characters for others:" + "".join(sorted(LEGAL_BLOCK_NAME_CHAR)) + "-")
 
 
 class SignedBlock(object):
@@ -1067,7 +1067,7 @@ class Chromosome:
         else:
             # if equals
             if hash(self) == hash(other_chromosome):
-                return other_chromosome, False
+                return {"changes": changes, "changed": False}
             adjacency_dif = self.adjacency_differs_from(other_chromosome)
             for adj in adjacency_dif["record"].keys():
                 for count_adj in range(abs(adjacency_dif["record"][adj][0] - adjacency_dif["record"][adj][1])):
@@ -1532,7 +1532,7 @@ class Plastome(Chromosome):
                             build_adj_hash=build_adj_hash, build_adjacent_blocks=build_adjacent_blocks,
                             check_redundant_gaps=check_redundant_gaps, check_content=check_content,
                             mirror=mirror)
-        if check_content and not self.circular:
+        if chromosome_str_or_list and check_content and not self.circular:
             raise TypeError("\n" + str(type(self)) + " is designed as a circular signed permutation!\n"
                             "Please use: arachis.genomeClass.Chromosome(\"" + str(chromosome_str_or_list) + "\")\n"
                             "Forbidden : arachis.plastomeClass.Plastome(\"" + str(chromosome_str_or_list) + "\")\n")
@@ -1542,7 +1542,7 @@ class Plastome(Chromosome):
         self.ir_locations = None
         self.lsc_location = None
         self.ssc_location = None
-        if detect_ir:
+        if chromosome_str_or_list and detect_ir:
             self.update_ir()
 
     def __eq__(self, other):
