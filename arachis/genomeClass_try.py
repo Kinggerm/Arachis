@@ -1405,22 +1405,6 @@ class GenomeList(list):
             seqs.append(genome.label + " " * 10 + seq + "\n")
         return head + "".join(seqs)
 
-    def get_content_matrix(self, gap_as_ambiguous=True, binary=False):
-        block_list = self.content_counter.character_list()
-        seqs = ["\t" + "\t".join([str(abs(b)) for b in block_list])]
-        for genome in self:
-            # if there's a gap in the genome, use "-"(unknown) rather than "0"(doesn't exist) to missing block
-            if gap_as_ambiguous and genome.contains_gap():
-                not_found = "-"
-            else:
-                not_found = 0
-            if binary:
-                seq = "\t".join(["1" if b in genome.content else not_found for b in block_list])
-            else:
-                seq = "\t".join([str(genome.content.get(b, not_found)) for b in block_list])
-            seqs.append(genome.label + "\t" + seq)
-        return "\n".join(seqs)
-
     def get_adjacency_phylip(self, gap_as_ambiguous=True, binary=True, reverse_code=False):
         state_set = self.adjacency_counter.state_set()
         adj_list = self.adjacency_counter.character_list()
@@ -1432,8 +1416,6 @@ class GenomeList(list):
         for genome in self:
             # if there's a gap in the genome, add "-" to candidate adjacency that involves the (block next to the gap)
             # or (block that are missing due to the gap)
-            # arg 1: from the assembly side, it may not happen that one copy of a gene is missing while another exists.
-            #        ideally, all adjacency states (including the *) of a gene exist if that gene exists.
             treat_gap = gap_as_ambiguous and genome.contains_gap()
             if treat_gap:
                 block_set = self.content_counter.character_set()
@@ -1463,39 +1445,6 @@ class GenomeList(list):
                 seq = [trans[base] for base in seq]
             seqs.append(genome.label + " " * 10 + "".join(seq) + "\n")
         return head + "".join(seqs)
-
-    def get_adjacency_matrix(self, gap_as_ambiguous=True, binary=True):
-        adj_list = self.adjacency_counter.character_list()
-        seqs = ["\t" + "\t".join([ad.as_head_tail_str() for ad in adj_list])]
-        for genome in self:
-            # if there's a gap in the genome, add "-" to candidate adjacency that involves the (block next to the gap)
-            # or (block that are missing due to the gap)
-            # arg 1: from the assembly side, it may not happen that one copy of a gene is missing while another exists.
-            #        ideally, all adjacency states (including the *) of a gene exist if that gene exists.
-            treat_gap = gap_as_ambiguous and genome.contains_gap()
-            if treat_gap:
-                block_set = self.content_counter.character_set()
-                unknown_blocks = {b for b in block_set if b not in genome.content}
-            else:
-                unknown_blocks = {}
-            seq = []
-            for adj in adj_list:
-                if adj in genome.adjacency:
-                    seq.append("1" if binary else str(genome.adjacency[adj]))
-                elif treat_gap:
-                    start, end = adj.left, adj.right
-                    missing_start = abs(start) in unknown_blocks
-                    missing_end = abs(end) in unknown_blocks
-                    start_t_break = Adjacency(start, GapBlock) in genome.unknown_adjacency()
-                    break_t_end = Adjacency(GapBlock, end) in genome.unknown_adjacency()
-                    if (missing_end or break_t_end) and (missing_start or start_t_break):
-                        seq.append("-")
-                    else:
-                        seq.append("0")
-                else:
-                    seq.append("0")
-            seqs.append(genome.label + "\t" + "\t".join(seq))
-        return "\n".join(seqs)
 
     class __ElementCounter:
         def __init__(self):
