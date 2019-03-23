@@ -2372,7 +2372,6 @@ class Plastome(Chromosome):
                 # Loop 4: add new pointers if shorter repeats should be continued with less alias
                 # Loop 5: update the repeats according to pointers
                 repeats_to_stop = {}
-                kinds_del_from_points = set()
                 for one_connection in last_connection:
                     here_id, direction_trans = one_connection
                     candidate_new_connect = ((here_id + direction_trans) % raw_seq_len, direction_trans)
@@ -2383,31 +2382,24 @@ class Plastome(Chromosome):
                                 repeats_to_stop[group][repeat_num] = one_connection
                             else:
                                 repeats_to_stop[group] = {repeat_num: one_connection}
-                            kinds_del_from_points.add(group)
 
-                for group in kinds_del_from_points:
-                    for now_start, now_go_to, now_direction in repeats[group]:
-                        connection_del_fr_points = ((now_go_to - (word_size - 1) * (now_direction == 1)) % raw_seq_len,
-                                                    now_direction)
-                        if connection_del_fr_points in active_connection_to_repeats:
-                            count_this_group = 0
-                            while count_this_group < len(active_connection_to_repeats[connection_del_fr_points]):
-                                if active_connection_to_repeats[connection_del_fr_points][count_this_group][0] == group:
-                                    del active_connection_to_repeats[connection_del_fr_points][count_this_group]
-                                else:
-                                    count_this_group += 1
-                            if not len(active_connection_to_repeats[connection_del_fr_points]):
-                                del active_connection_to_repeats[connection_del_fr_points]
+                for last_con in list(active_connection_to_repeats):
+                    count_ids = 0
+                    while count_ids < len(active_connection_to_repeats[last_con]):
+                        if active_connection_to_repeats[last_con][count_ids][0] in repeats_to_stop:
+                            del active_connection_to_repeats[last_con][count_ids]
+                        else:
+                            count_ids += 1
+                    if not len(active_connection_to_repeats[last_con]):
+                        del active_connection_to_repeats[last_con]
 
-                for one_connection in last_connection:
-                    here_id, direction_trans = one_connection
+                new_pointer = {}
+                for last_con in active_connection_to_repeats:
+                    here_id, direction_trans = last_con
                     candidate_new_connect = ((here_id + direction_trans) % raw_seq_len, direction_trans)
-                    if candidate_new_connect in this_connection:
-                        if one_connection in active_connection_to_repeats:
-                            active_connection_to_repeats[candidate_new_connect] = []
-                            for one_repeat_id in active_connection_to_repeats[one_connection]:
-                                active_connection_to_repeats[candidate_new_connect].append(one_repeat_id)
-                            del active_connection_to_repeats[one_connection]
+                    if candidate_new_connect in this_connection:  # and last_con in active_connection_to_repeats:
+                        new_pointer[candidate_new_connect] = list(active_connection_to_repeats[last_con])
+                active_connection_to_repeats = new_pointer
 
                 for group in repeats_to_stop:
                     if len(repeats[group]) - len(repeats_to_stop[group]) >= 2:
@@ -2483,7 +2475,6 @@ class Plastome(Chromosome):
                 # Loop 4: add new pointers if shorter repeats should be continued with less alias
                 # Loop 5: update the repeats according to pointers
                 repeats_to_stop = {}
-                kinds_del_from_points = set()
                 for one_connection in last_connection:
                     here_id, direction_trans = one_connection
                     candidate_new_connect = (here_id + direction_trans, direction_trans)
@@ -2494,31 +2485,24 @@ class Plastome(Chromosome):
                                 repeats_to_stop[group][repeat_num] = one_connection
                             else:
                                 repeats_to_stop[group] = {repeat_num: one_connection}
-                            kinds_del_from_points.add(group)
 
-                for group in kinds_del_from_points:
-                    for now_start, now_go_to, now_direction in repeats[group]:
-                        connection_del_fr_points = (now_go_to - (word_size - 1) * (now_direction == 1),
-                                                      now_direction)
-                        if connection_del_fr_points in active_connection_to_repeats:
-                            count_this_group = 0
-                            while count_this_group < len(active_connection_to_repeats[connection_del_fr_points]):
-                                if active_connection_to_repeats[connection_del_fr_points][count_this_group][0] == group:
-                                    del active_connection_to_repeats[connection_del_fr_points][count_this_group]
-                                else:
-                                    count_this_group += 1
-                            if not len(active_connection_to_repeats[connection_del_fr_points]):
-                                del active_connection_to_repeats[connection_del_fr_points]
+                for last_con in list(active_connection_to_repeats):
+                    count_ids = 0
+                    while count_ids < len(active_connection_to_repeats[last_con]):
+                        if active_connection_to_repeats[last_con][count_ids][0] in repeats_to_stop:
+                            del active_connection_to_repeats[last_con][count_ids]
+                        else:
+                            count_ids += 1
+                    if not len(active_connection_to_repeats[last_con]):
+                        del active_connection_to_repeats[last_con]
 
-                for one_connection in last_connection:
-                    here_id, direction_trans = one_connection
-                    candidate_new_connect = (here_id + direction_trans, direction_trans)
-                    if candidate_new_connect in this_connection:
-                        if one_connection in active_connection_to_repeats:
-                            active_connection_to_repeats[candidate_new_connect] = []
-                            for one_repeat_id in active_connection_to_repeats[one_connection]:
-                                active_connection_to_repeats[candidate_new_connect].append(one_repeat_id)
-                            del active_connection_to_repeats[one_connection]
+                new_pointer = {}
+                for last_con in active_connection_to_repeats:
+                    here_id, direction_trans = last_con
+                    candidate_new_connect = ((here_id + direction_trans) % raw_seq_len, direction_trans)
+                    if candidate_new_connect in this_connection:  # and last_con in active_connection_to_repeats:
+                        new_pointer[candidate_new_connect] = list(active_connection_to_repeats[last_con])
+                active_connection_to_repeats = new_pointer
 
                 for group in repeats_to_stop:
                     if len(repeats[group]) - len(repeats_to_stop[group]) >= 2:
