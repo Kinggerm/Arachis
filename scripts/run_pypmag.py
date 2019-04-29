@@ -56,7 +56,7 @@ def get_options(print_title=""):
                       help="path to concorde. Default: \"concorde\" (in the path)")
     parser.add_option("--verbose", dest="verbose", default=False, action="store_true",
                       help="verbose mode.")
-    parser.add_option("--keep", dest="keep_temp", default=False, action="store_true",
+    parser.add_option("--keep-temp", dest="keep_temp", default=False, action="store_true",
                       help="keep temp files.")
     parser.add_option("--continue", dest="resume", default=False, action="store_true",
                       help="continue mode.")
@@ -350,7 +350,7 @@ def reconstruct_ancestral_genomes(data_file, input_tree, out_dir, which_raxml, w
         gene_order_out.write(temp_f.read())
         temp_f.close()
         if not keep_temp:
-            os.remove(os.path.join(out_dir, "OutputGeneOrder_" + str(go_to)))
+            os.remove(os.path.join(out_dir, "OutputGeneOrder_" + ancestor_labels[go_to]))
     gene_order_out.close()
 
 
