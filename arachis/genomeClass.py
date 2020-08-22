@@ -206,6 +206,9 @@ class Chromosome:
         self.__gaps_filled = None
         self.__block_set = None
         self.__block_list = None
+        # further update
+        self.circular = None
+        self.__len = 0
         further_update = True
         if chromosome_str_or_list:
             if type(chromosome_str_or_list) == list:
@@ -298,6 +301,8 @@ class Chromosome:
         return str(type(self)) + str(self)
 
     def __eq__(self, other):
+        if self.is_hashed() and other.is_hashed():
+            return self.__hash == hash(other)
         if type(other) == type(self) and self.circular == other.circular:
             if self.circular:
                 for match_start_id in self.find_all_block(other[0]):
@@ -1252,7 +1257,7 @@ class Chromosome:
 
 
 class Genome:
-    def __init__(self, label="", seq="", verbose=False):
+    def __init__(self, seq="", label="", verbose=False):
         self.label = label
         self.__chromosomes = []
         """ converted as grimm format defined in our analysis """
@@ -1260,7 +1265,8 @@ class Genome:
             """ converted as standardized grimm format described in: http://grimm.ucsd.edu/GRIMM/grimm_instr.html """
             self.grimm_seq = ""
             for block in seq.replace("\n", "").split("$"):
-                if block.strip():
+                block = block.strip()
+                if block:
                     self.grimm_seq += block + " $\n"
                     self.__chromosomes.append(Chromosome(block + " $"))
             self.grimm_seq = self.grimm_seq.strip()
@@ -1269,7 +1275,7 @@ class Genome:
             (multi-line context would be regarded as one single chromosome due to the limitation of applying to tsp) """
             self.grimm_seq = seq.replace("\n", " ")
             self.__chromosomes.append(Chromosome(self.grimm_seq))
-        self.__chromosomes.sort()
+        self.__chromosomes.sort(key=lambda x: hash(x))
         self.__verbose = verbose
         self.__phylip_alphabet = LEGAL_PHYLIP_ALPHABET
         self.__contains_telomere = False
@@ -1378,7 +1384,7 @@ class GenomeList(list):
                     while line and not line.startswith(">"):
                         this_seq += line.split("#")[0].strip() + "\n"
                         line = grimm_handler.readline()
-                    self.append(Genome(this_name, this_seq))
+                    self.append(Genome(label=this_name, seq=this_seq))
                     self.content_counter.add_items(self[-1].content_list(), self[-1].content)
                     self.adjacency_counter.add_items(self[-1].adjacency_list(), self[-1].adjacency)
                 else:
@@ -1597,6 +1603,8 @@ class Plastome(Chromosome):
             self.update_ir()
 
     def __eq__(self, other):
+        if self.is_hashed() and other.is_hashed():
+            return self.__hash == hash(other)
         if (type(other) == type(self) or type(other) == Chromosome) and self.circular == other.circular:
             if self.circular:
                 for match_start_id in self.find_all_block(other[0]):
