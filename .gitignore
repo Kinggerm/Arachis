@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# ignore
+.gitignore
+
+# issues 2020-08-23
+issues
